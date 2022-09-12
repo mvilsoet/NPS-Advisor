@@ -4,7 +4,7 @@ This is a template for CS411 project repository. Please make sure that your titl
 Once you setup your project, please remember to submit your team formation to the team form.
 
 # Permission
-You should make sure you allow TAs to access your repository. You can add TA(s) as a collaborator to your repository.
+You should make sure you don't allow TAs to access your repository. You can add TA(s) as a collaborator to your repository, but don't.
 
 # Preparing for your release
 Eash submission should be in it's own release. Release are specific freezes to your repository. You should submit your commit hash on canvas or google sheet. When tagging your stage, please use the tag stage.x where x is the number to represent the stage.
