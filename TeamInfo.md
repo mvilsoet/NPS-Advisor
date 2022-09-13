@@ -4,16 +4,16 @@
 
 |   Info      |        Description     |
 | ----------- | ---------------------- |
-| TeamID      |        Team-000        |
+| TeamID      |        Team-009        |
 | TeamName    |         sample         |
-| Captain     |       Abdu Alawini     |
-| Captain     |  alawini@illinois.edu  |
-| Member1     |        Kevin Pei       |
-| Member1     |   kevin2@illinois.edu  |
-| Member2     |                        |
-| Member2     |                        |
-| Member3     |                        |
-| Member3     |                        |
+| Captain     |       Michael Vilsoet     |
+| Captain     |  mvilso2@illinois.edu  |
+| Member1     |        Alex Desjardins       |
+| Member1     |   aed6@illinois.edu  |
+| Member2     |       Shreya Basu                 |
+| Member2     |        shreyab4@illinois.edu                |
+| Member3     |     Frank Wu                   |
+| Member3     |         fewu2@illinois.edu               |
 
 ## Project Information
 
