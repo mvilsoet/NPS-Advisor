@@ -1,11 +1,11 @@
-# A-team000-sample
+# A-team000-e
 
 ## Basic Information
 
 |   Info      |        Description     |
 | ----------- | ---------------------- |
 | TeamID      |        Team-009        |
-| TeamName    |         sample         |
+| TeamName    |         e         |
 | Captain     |       Michael Vilsoet     |
 | Captain     |  mvilso2@illinois.edu  |
 | Member1     |        Alex Desjardins       |
