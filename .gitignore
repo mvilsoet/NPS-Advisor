@@ -1,1 +1,3 @@
-/virtual_env
+npsadvisor/virtual_env
+npsadvisor/app.yaml
+npsadvisor/app/__pycache__
