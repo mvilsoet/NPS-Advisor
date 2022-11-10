@@ -81,6 +81,7 @@ p {
 
 .dropdown2 {
     position: relative;
+    left: 50px;
     display: inline-block;
 }
 
@@ -119,7 +120,7 @@ p {
 ul {
     list-style-type: none;
     margin: 0;
-    padding: 10;
+    padding: 0;
     overflow: hidden;
     background-color: #6F4930;
 }

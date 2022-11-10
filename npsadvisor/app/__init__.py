@@ -27,8 +27,10 @@ db = init_connect_engine()
 
 conn = db.connect()
 results = conn.execute("Select * from Parks")
+activities = conn.execute("Select DISTINCT title from Activities")
+# print([x for x in activities])
 # we do this because results is an object, this is just a quick way to verify the content
-print([x for x in results])
+# print([x for x in results])
 conn.close()
 
 from app import routes

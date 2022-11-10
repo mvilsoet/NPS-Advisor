@@ -12,13 +12,15 @@
 <body style="font-family: Source Serif Pro, Arial, serif";>
     <div class="header">
         <h1>National Park Advisor [Demo]</h1>
+        <p1>Home</p1>
     </div>
 
     <ul>
-        <li><a class="active" href="#home">Home</a></li>
-        <li><a href="#Things to Do">Things to Do</a></li>
-        <li><a href="#Amenities">Amenities</a></li>
-        <li><a href="#Events">Events</a></li>
+        {% for item in nav.top %}
+        <li class="{{ 'active' if item.is_active else '' }}">
+            <a href="{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
     </ul>
 
     <h1>National Park Selection</h1>
@@ -37,12 +39,12 @@
     </div>
 
     <div class="dropdown2">
-        <button onclick="myFunction2()" style="font-family: Source Serif Pro, Arial, serif" class="dropbtn2">Activity</button>
-        <div id="myDropdown2" class="dropdown-content2">
+        <button onclick="myFunction2()" style="font-family: Source Serif Pro, Arial, serif" class="dropbtn">Activity</button>
+        <div id="myDropdown2" class="dropdown-content">
           <input type="text" placeholder="Search.." id="myInput2" onkeyup="filterFunction()">
-          <a href="#IL">Hiking</a>
-          <a href="#IL">Boating</a>
-          <a href="#IL">What Else Lol</a>
+          {% for i in activites %}
+            <a href="{{"#placeholder"}}">{{ i }}</a>
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -53,6 +55,10 @@
 toggle between hiding and showing the dropdown content */
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function myFunction2() {
+    document.getElementById("myDropdown2").classList.toggle("show");
 }
 
 function filterFunction() {
@@ -72,27 +78,5 @@ function filterFunction() {
 }
 </script>
 
-<script>
-    /* When the user clicks on the button,
-    toggle between hiding and showing the dropdown content */
-    function myFunction2() {
-        document.getElementById("myDropdown2").classList.toggle("show");
-    }
-    
-    function filterFunction() {
-        var input, filter, ul, li, a, i;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        div = document.getElementById("myDropdown");
-        a = div.getElementsByTagName("a");
-        for (i = 0; i < a.length; i++) {
-        txtValue = a[i].textContent || a[i].innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            a[i].style.display = "";
-        } else {
-            a[i].style.display = "none";
-        }
-        }
-    }
-</script>
+
 </html>
