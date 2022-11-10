@@ -17,11 +17,15 @@ nav.Bar('top', [
 
 @app.route("/")
 def homepage():
-    return render_template("index.html", name=db_helper())
+    activities = db_helper.get_activities()
+    states = db_helper.get_states()
+    return render_template("index.html", activities=activities, states=states)
 
 @app.route("/home")
 def home():
-    return render_template("index.html")
+    activities = db_helper.get_activities()
+    states = db_helper.get_states()
+    return render_template("index.html", activities=activities, states=states)
 
 @app.route('/thingstodo')
 def thingstodo():
