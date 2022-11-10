@@ -1,0 +1,8 @@
+__pychache__/
+.venv
+
+.vscode
+.gcloudignore
+
+.git
+.gitignore

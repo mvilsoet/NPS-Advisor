@@ -1,1 +1,74 @@
-<h1>Hello, World!</h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="static/styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Source+Serif+Pro:wght@700&display=swap" rel="stylesheet">
+    </head>
+<body style="font-family: Source Serif Pro, Arial, serif";>
+    <div class="header">
+        <h1>National Park Advisor [Demo]</h1>
+    </div>
+
+    <ul>
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#Things to Do">Things to Do</a></li>
+        <li><a href="#Amenities">Amenities</a></li>
+        <li><a href="#Events">Events</a></li>
+    </ul>
+
+    <h1>National Park Selection</h1>
+
+    <p> Filter by: </p>
+
+    <div class="dropdown">
+        <button onclick="myFunction()" style="font-family: Source Serif Pro, Arial, serif" class="dropbtn">State</button>
+        <div id="myDropdown" class="dropdown-content">
+          <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+          <a href="#IL">IL</a>
+          <a href="#IL">IN</a>
+          <a href="#IL">IA</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dropdown2">
+        <button onclick="myFunction()" style="font-family: Source Serif Pro, Arial, serif" class="dropbtn2">Activity</button>
+        <div id="myDropdown" class="dropdown-content2">
+          <input type="text" placeholder="Search.." id="myInput2" onkeyup="filterFunction()">
+          <a href="#IL">Hiking</a>
+          <a href="#IL">Boating</a>
+          <a href="#IL">What Else Lol</a>
+        </div>
+      </div>
+    </div>
+</body>
+
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+    } else {
+        a[i].style.display = "none";
+    }
+    }
+}
+</script>
+</html>
