@@ -22,9 +22,8 @@ def get_states():
         for i in str(result).split(","):
             i = i.replace("'", "")
             i = i.replace("(", "")
-            i = i.replace(")", "")
             if state.get(i) == None:
                 state[i] = 1
-                if i != None:
+                if i != ")":
                     states.append(i)
     return states
