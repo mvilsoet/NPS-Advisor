@@ -22,15 +22,14 @@ def init_connect_engine():
     )
     return pool
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='./templates', static_folder='./static')
 db = init_connect_engine()
-
+""" 
+#Testing Database Connection
 conn = db.connect()
-results = conn.execute("Select * from Parks")
-activities = conn.execute("Select DISTINCT title from Activities")
-# print([x for x in activities])
-# we do this because results is an object, this is just a quick way to verify the content
-# print([x for x in results])
+results = conn.execute("Select * FROM Parks LIMIT 5;" )
+print([x for x in results])
 conn.close()
 
+ """
 from app import routes
