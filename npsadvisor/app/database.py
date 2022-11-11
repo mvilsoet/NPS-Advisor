@@ -21,11 +21,10 @@ def get_parks() -> dict:
     return parks
 
 def search_parks(search_query) -> dict:
+    search_query = "%" + search_query + "%"
     conn = db.connect()
-    query = "SELECT name, description, stateAbbr, directionsUrl FROM Parks WHERE name LIKE '%{}%' LIMIT 2".format(
-        search_query
-    )
-    query_res = conn.execute(query).fetchall()
+    query = "SELECT name, description, stateAbbr, directionsUrl FROM Parks WHERE name LIKE %s LIMIT 2;"
+    query_res = conn.execute(query, (search_query)).fetchall()
     conn.close()
     parks = []
     for res in query_res:
