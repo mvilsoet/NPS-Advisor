@@ -19,3 +19,15 @@ def fetch_parks() -> dict:
         }
         parks.append(item)
     return parks
+
+def get_parknames() -> dict:
+    conn = db.connect()
+    query_res = conn.execute("SELECT name FROM Parks LIMIT 2;").fetchall()
+    park_name = []
+    conn.close()
+    for res in query_res:
+        item = {
+            "name": res[0]
+        }
+        park_name.append(item)
+    return park_name

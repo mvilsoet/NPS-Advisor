@@ -1,15 +1,22 @@
+<!DOCTYPE html>
+
 <html>
     <head>
         <title>Events</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" href="{{ url_for('static', filename='img/cs.ico') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/custom.css') }}">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@700&display=swap" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Source+Serif+Pro:wght@700&display=swap" rel="stylesheet">
+
     </head>
-    <body style="font-family: Source Serif Pro, Arial, serif";>
+
+    <body>
         <ul>
             {% for item in nav.top %}
             <li class="{{ 'active' if item.is_active else '' }}">
@@ -20,10 +27,63 @@
         <div class="header">
             <h1>National Park Advisor [Demo]</h1>
         </div>
-        <div style="text-align: right;">
-            <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Add Task</button>
+        <div class="container">    
+            <!-- Button trigger modal -->
+            <div style="text-align: right;">
+            <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Event">Add Events</button>
+            </div>
+
+            
+            <div class="modal fade" id="task-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="Label">Add an Event</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="task-form-display">Event Title</span>
+                                <input type="text" class="form-control" placeholder="Description of task" aria-label="event-title" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="task-form-display">Event Description</span>
+                                <input type="text" class="form-control" placeholder="Description of task" aria-label="event-title" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="task-form-display">Event Start Date</span>
+                                <input type="date" class="form-control" placeholder="Event Start Date" aria-label="event-start-date" aria-describedby="basic-addon1">
+                                <span class="input-group-text" id="task-form-display">Event End Date</span>
+                                <input type="date" class="form-control" placeholder="Event Start Date" aria-label="event-start-date" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="dropdown">
+                                    <label class="input-group-text" for="igs-01">Parks</label>
+                                    <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button> -->
+                                    <select class="form-select" id="igs-01">
+                                        <option>Choose park...</option>
+                                        {% for park_name in park_names %}  
+                                        <option>{{park_name.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                                
+                                <!--datestart, description, dateend, title, parkfull name-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="submit-task" type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </body>
-</html>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/modal.js') }}"></script>
+
+</html>

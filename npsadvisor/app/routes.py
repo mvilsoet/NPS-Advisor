@@ -17,4 +17,13 @@ def homepage():
 
 @app.route("/events")
 def events():
-    return render_template("events.html")
+    park_names = db_helper.get_parknames()
+    print(park_names)
+    return render_template("events.html", park_names=park_names)
+
+@app.route("/create_event", methods=['POST'])
+def create_event():
+    data = request.get_json()
+    # db_helper.insert_new_task(data['description'])
+    result = {'success': True, 'response': 'Done'}
+    return jsonify(result)
