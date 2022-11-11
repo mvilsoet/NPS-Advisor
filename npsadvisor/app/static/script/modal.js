@@ -24,25 +24,27 @@ $(document).ready(function () {
 
 
     $('#submit-task').click(function () {
-        console.log($('#task-modal'));
-
-
-        const tID = $('#task-form-display').attr('taskID');
-        console.log($('#task-modal').find('.form-control').val());
-        /* $.ajax({
+        request = {
             type: 'POST',
-            url: tID ? '/edit/' + tID : '/create',
+            url: '/create_event',
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify({
-                'description': $('#task-modal').find('.form-control').val()
-            }),
+                'title': $('#task-modal').find('#event-title').val(),
+                'description': $('#task-modal').find('#event-description').val(),
+                'start_date': $('#task-modal').find('#event-start-date').val(),
+                'end_date': $('#task-modal').find('#event-end-date').val(),
+                'park_name': $('#task-modal').find('#igs-01').val()
+
+            }), 
             success: function (res) {
-                console.log(res.response)
+                console.log("e")
                 location.reload();
             },
             error: function () {
                 console.log('Error');
             }
-        }); */
+        }
+
+        $.ajax(request);
     });
 });
