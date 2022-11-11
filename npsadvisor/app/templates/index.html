@@ -8,13 +8,21 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
+        <!--Icon Library-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/custom.css') }}">
 
     </head>
     <body>
+        <ul>
+            {% for item in nav.top %}
+            <li class="{{ 'active' if item.is_active else '' }}">
+                <a href="{{ item.url }}">{{ item.label }}</a>
+            </li>
+            {% endfor %}
+        </ul>
         <main class="container extra-bottom">
-            <h1 class="mt-5">NPS Advisor</h1>
+            <h1 class="mt-5">National Park Services Advisor</h1>
         </main>
         <div class="container">
             <!-- Button HTML-->
@@ -27,6 +35,7 @@
                     <th class="Park Name">Name</th>
                     <th class="Park Description">Description</th>
                     <th class="Park State">State(s)</th>
+                    <th class="Park Directions">Directions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,7 +43,8 @@
                     <tr>
                         <td>{{park.name}}</td>
                         <td>{{park.description}}</td>
-                        <td>{{park.stateAbbr}}</td>
+                        <td>{{park.states}}</td>
+                        <td><a href= park.directions></a></td> <!--debug later!-->
                     </tr>
                 {% endfor %}   
                 </tbody>
@@ -46,3 +56,78 @@
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <!--<script src="script/modal.js"></script>-->
 </html>
+
+
+<!-- <html>
+    <head>
+        <link rel="stylesheet" href="static/styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Source+Serif+Pro:wght@700&display=swap" rel="stylesheet">
+    </head>
+<body style="font-family: Source Serif Pro, Arial, serif";>
+    <div class="header">
+        <h1>National Park Advisor [Demo]</h1>
+        <p1>Home</p1>
+    </div>
+
+    <h1>National Park Selection</h1>
+
+    <p> Filter by: </p>
+
+    <div class="dropdown">
+        <button onclick="myFunction()" style="font-family: Source Serif Pro, Arial, serif" class="dropbtn">State</button>
+        <div id="myDropdown" class="dropdown-content">
+          <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+          <a href="#IL">IL</a>
+          <a href="#IL">IN</a>
+          <a href="#IL">IA</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dropdown2">
+        <button onclick="myFunction2()" style="font-family: Source Serif Pro, Arial, serif" class="dropbtn">Activity</button>
+        <div id="myDropdown2" class="dropdown-content">
+          <input type="text" placeholder="Search.." id="myInput2" onkeyup="filterFunction()">
+          {% for i in activites %}
+            <a href="{{"#placeholder"}}">{{ i }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</body>
+
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function myFunction2() {
+    document.getElementById("myDropdown2").classList.toggle("show");
+}
+
+function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+    } else {
+        a[i].style.display = "none";
+    }
+    }
+}
+</script>
+
+
+</html> -->

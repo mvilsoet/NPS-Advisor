@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Events</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/custom.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Source+Serif+Pro:wght@700&display=swap" rel="stylesheet">
+    </head>
+    <body style="font-family: Source Serif Pro, Arial, serif";>
+        <ul>
+            {% for item in nav.top %}
+            <li class="{{ 'active' if item.is_active else '' }}">
+                <a href="{{ item.url }}">{{ item.label }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="header">
+            <h1>National Park Advisor [Demo]</h1>
+        </div>
+        <div style="text-align: right;">
+            <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Add Task</button>
+        </div>
+
+    </body>
+</html>
+
