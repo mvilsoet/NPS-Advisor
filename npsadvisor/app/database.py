@@ -5,7 +5,7 @@ def test_fetch() -> dict:
     ]
     return parks
 
-def fetch_parks() -> dict:
+def get_parks() -> dict:
     conn = db.connect()
     query_res = conn.execute("SELECT name, description, stateAbbr, directionsUrl FROM Parks LIMIT 10;").fetchall() # Use Python's .format() for user input
     conn.close()
@@ -31,3 +31,10 @@ def get_parknames() -> dict:
         }
         park_name.append(item)
     return park_name
+
+def insert_new_event(title, description, start_date, end_date, park_name):
+    conn = db.connect()
+    query = "INSERT INTO Events (title, description, datestart, dateend, parkfullname) VALUES("{}", "{}", "{}", "{}", "{}");".format(
+        title, description, start_date, end_date, park_name)
+    query_res = conn.execute(query)
+    conn.close()
