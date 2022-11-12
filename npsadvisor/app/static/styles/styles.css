@@ -1,0 +1,216 @@
+body {
+    background-color: #56903A;
+}
+h1 {
+    color: #FFFFFF;
+}
+p {
+    color: #FFFFFF;
+}
+
+.header {
+    padding: 30px;
+    font-family: 'Abril Fatface', Arial, serif;
+    background: #213A1B;
+    color: white;
+    font-size: 30px;
+}
+
+
+.subtitiles {
+    overflow: hidden;/* Makes this div contain its floats */
+}
+
+.subtitles .subtitle1 {
+    float: left;
+    color: white;
+    font-size: 20px;
+}
+
+.subtitles .subtitle2 {
+    float: right;
+    margin-right: 800px;
+    color: white;
+    font-size: 20px;
+}
+
+.dropbtn {
+    background-color: #6F4930;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn2 {
+    position: relative;
+    left: 50px;
+    background-color: #6F4930;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #C56C39;
+}
+
+#myInput {
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+#myInput:focus {outline: 3px solid #ddd;}
+
+#myInput2 {
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+#myInput2:focus {outline: 3px solid #ddd;}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    font-family: Arial, serif;
+    background-color: #f6f6f6;
+    min-width: 230px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+}
+
+.dropdown2 {
+    position: relative;
+    left: 50px;
+    display: inline-block;
+}
+
+.dropdown-content2 {
+    display: none;
+    position: absolute;
+    left: 50px;
+    font-family: Arial, serif;
+    background-color: #f6f6f6;
+    min-width: 230px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content2 a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.dropdown2 a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+.search-box input[type=text] {
+    position: absolute
+    padding: 5px;
+    height: 50px;
+    width: 460px;
+    border: none;
+    font-size: 20px;
+}
+
+.search-box button {
+    background-color: #6F4930;
+    color: white;
+    padding: 5px;
+    font-size: 20px;
+    height: 50px;
+    width: 100px;
+    border: none;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background-color: #C56C39;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #6F4930;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #C56C39;
+}
+
+.resultsTable {
+    float: right;
+    width: 975px;
+    overflow-y: auto;
+    height: 600px;
+    color: white;
+}
+
+.resultsTable thead th{
+    position: sticky;
+    top: 0;
+}
+
+table {
+    border-collapse: collapse;        
+    width: 100%;
+    background: #213A1B;
+}
+
+th,
+td {
+    padding: 8px 10px;
+    border: 2px solid #529432;
+}
+th {
+    background: #6F4930;
+}
+
+.active {
+    background-color: #C56C39;
+}

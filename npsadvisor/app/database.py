@@ -24,7 +24,7 @@ def get_parks() -> dict:
 def search_parks(search_query) -> dict:
     search_query = "%" + search_query + "%"
     conn = db.connect()
-    query = "SELECT name, description, stateAbbr, directionsUrl FROM Parks WHERE name LIKE %s LIMIT 2;"
+    query = "SELECT name, description, stateAbbr, directionsUrl FROM Parks WHERE name LIKE %s LIMIT 10;"
     query_res = conn.execute(query, (search_query)).fetchall()
     conn.close()
     parks = []
@@ -37,6 +37,7 @@ def search_parks(search_query) -> dict:
         }
         parks.append(item)
     return parks
+
 
 def get_events() -> dict:
     conn = db.connect()
@@ -75,6 +76,24 @@ def get_events_free_parking() -> dict:
     for res in query_res:
         free_parking_events.append(res[0])
     return free_parking_events
+
+def in_season(input) -> dict:
+    arg = input
+    conn = db.connect()
+    query = "SELECT p.name, p.description, p.stateAbbr, count(a.activID), season FROM Activities a JOIN Parks p ON (a.parkCode = p.parkCode) WHERE season = %s AND a.hasFee = false GROUP BY a.parkCODE ORDER BY count(a.activID) DESC LIMIT 10;"
+    query_res = conn.execute(query, arg).fetchall()
+    conn.close()
+    parks = []
+    for res in query_res:
+        item = {
+            "name": res[0],
+            "description": res[1],
+            "states": res[2],
+            "amount": res[3],
+        }
+        parks.append(item)
+    return parks
+
 
 def get_parknames() -> dict:
     conn = db.connect()
