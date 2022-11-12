@@ -79,30 +79,31 @@
             </div>
         </div>
         <div class="container table-responsive">
-            <!-- Table -->
+            <!-- Table-->
             <table class="table">
-                <thead>
-                    <tr>
-                        <th class="Event Title">title</th>
-                        <th class="Event Description">description</th>
-                        <th class="Start Date">datestart</th>
-                        <th class="End Date">dateend</th>
-                        <th class="Park Full Name">parkfullname</th>
-                        <th class="Has Fee">hasFee</th>
-                    </tr>
+                <thead> <!--Table metadata-->
+                <tr>
+                    <th class="Event Name">Name</th>
+                    <th class="Event Description">Description</th>
+                    <th class="Event Start Date">Start Date</th>
+                    <th class="Event End Date">End Date</th>
+                    <th class="Event Location">Located In</th>
+                    <th class="Free Parking">Free Parking</th>
+                </tr>
                 </thead>
                 <tbody>
                 {% for event in events %}
                     <tr>
-                        <td>{{event.title}}</td>
-                        <td>{{event.description}}</td>
-                        <td>{{event.datestart}}</td>
-                        <td>{{event.dateend}}</td>
-                        <td>{{event.parkfullname}}</td>
-                        <td>{{event.hasFee}}</td>
-                        <!--td><a href= park.directions></a></td--> <!--debug later!-->
+                        <td>{{event.event_title}}</td>
+                        <td>{{event.event_description}}</td>
+                        <td>{{event.start_date}}</td>
+                        <td>{{event.end_date}}</td>
+                        <td>{{event.park_name}} , {{event.states}}</td>
+                        {% if event.event_title in free_parking %}
+                        <td>it work</td>
+                        {% endif %}
                     </tr>
-                {% endfor %} 
+                {% endfor %}   
                 </tbody>
             </table>
         </div>

@@ -37,6 +37,44 @@ def search_parks(search_query) -> dict:
         parks.append(item)
     return parks
 
+def get_events() -> dict:
+    conn = db.connect()
+    query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend
+               FROM Parks p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
+               WHERE name LIKE 'Gateway Arch National Park'
+               ORDER BY datestart
+               LIMIT 15;"""
+    query_res = conn.execute(query).fetchall()
+    conn.close()
+    events = []
+    for res in query_res:
+        item = {
+            "event_title": res[0],
+            "event_description": res[1],
+            "park_name": res[2],
+            "states": res[3],
+            "start_date": res[4],
+            "end_date": res[5]
+        }
+        events.append(item)
+    return events
+
+def get_events_free_parking() -> dict:
+    conn = db.connect()
+    query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend
+                FROM Parks p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
+                WHERE name NOT IN (SELECT p.name
+                                   FROM Parks p JOIN ParkingLots | ON(p.parkCode = l.parkCode)
+                                   WHERE hasFee=True)
+                ORDER BY datestart
+                LIMIT 15;"""
+    conn.execute(query).fetchall()
+    free_parking_events = []
+    conn.close()
+    for res in query_res:
+        free_parking_events.append(res[0])
+    return free_parking_events
+
 def get_parknames() -> dict:
     conn = db.connect()
     query_res = conn.execute("SELECT name FROM Parks LIMIT 2;").fetchall()
@@ -55,21 +93,3 @@ def insert_new_event(title, description, start_date, end_date, park_name):
         title, description, start_date, end_date, park_name)
     query_res = conn.execute(query)
     conn.close()
-
-def get_events() -> dict:
-    conn = db.connect()
-    query = "SELECT title, description, datestart, dateend, parkfullname, hasFee FROM Events"
-    query_res = conn.execute(query).fetchall()
-    conn.close()
-    events = []
-    for res in query_res:
-        item = {
-            "title": res[0],
-            "description": res[1],
-            "datestart": res[2],
-            "dateend": res[3],
-            "parkfullname": res[4],
-            "hasFee": res[5]
-        }
-        events.append(item)
-    return events

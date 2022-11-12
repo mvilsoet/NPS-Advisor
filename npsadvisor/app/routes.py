@@ -21,9 +21,15 @@ def homepage():
 
 @app.route("/events")
 def events():
-    park_names = db_helper.get_parknames()
     events = db_helper.get_events()
-    return render_template("events.html", park_names=park_names, events=events)
+    #free_parking_events = db_helper.get_events_free_parking()
+    free_parking_events = []
+    park_names = db_helper.get_parknames()
+
+    events = db_helper.get_events()
+    free_parking_events = db_helper.get_events_free_parking()
+
+    return render_template("events.html", park_names=park_names, events=events, free_parking=free_parking_events)
 
 @app.route("/create_event", methods=['POST'])
 def create_event():
