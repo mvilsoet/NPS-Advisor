@@ -37,10 +37,10 @@
         <div class="container">    
             <!-- Button trigger modal -->
             <div style="text-align: right;">
-            <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Event">Add Events</button>
+            <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#add-modal" data-source="New Event">Add Events</button>
             </div>
  
-            <div class="modal fade" id="task-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+            <div class="modal fade" id="add-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -110,19 +110,46 @@
                         </td>
                         <td>
                             <div>
-                                <button type="button" class="btn btn-outline-info btn-sm" data-bs-tog
-                            gle="modal"
-                            data-bs-target="#event-modal" data-source="{{event.event_id}}"
-                            data-content="{{event}}"><i class="fa fa-pen fa-1" aria-hi
-                            dden="true"></i>
+                                <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" id="edit-button"
+                                data-bs-target="#edit-modal" data-source="{{event.event_id}}"
+                                data-content="{{event}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i>
                             </button>
                             </div>
-                            <div class="modal fade" id="event-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+                            <div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true" data-source="{{event.event_id}}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="Label">Add an Event</h5>
+                                            <h5 class="modal-title" id="Label">Edit an Event</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="display-group mb-3">
+                                                <span class="display-group-text">ID: {{event.event_id}}</span>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Event Title</span>
+                                                <input type="text" class="form-control" placeholder="Event Title" aria-label="event-title" aria-describedby="basic-addon1" id="event-title" data-source="{{event.event_title}}">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Event Description</span>
+                                                <input type="text" class="form-control" placeholder="Event Description" aria-label="event-description" aria-describedby="basic-addon1" id="event-description" data-source="{{event.event_description}}">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Event Start Date</span>
+                                                <input type="date" class="form-control" placeholder="Event Start Date" aria-label="event-start-date" aria-describedby="basic-addon1" id="event-start-date" data-source="{{event.start_date}}">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Event End Date</span>
+                                                <input type="date" class="form-control" placeholder="Event End Date" aria-label="event-start-date" aria-describedby="basic-addon1" id="event-end-date" data-source="{{event.end_date}}">
+                                            </div>
+                                            <div class="display-group mb-3">
+                                                <span class="display-group-text">Park: {{event.park_name}}</span>
+                                            </div>
+                                                <!--datestart, description, dateend, title, parkfull name-->
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button id="submit-edit-event" type="button" class="btn btn-primary" data-source="{{event.event_id}}" data-content="">Save changes</button>
                                         </div>
                                     </div>
                                 </div>

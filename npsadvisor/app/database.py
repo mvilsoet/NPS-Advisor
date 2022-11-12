@@ -97,7 +97,7 @@ def in_season(input) -> dict:
 
 def get_parknames() -> dict:
     conn = db.connect()
-    query_res = conn.execute("SELECT name FROM Parks LIMIT 2;").fetchall()
+    query_res = conn.execute("SELECT name FROM Parks;").fetchall() #LIMIT 2
     park_name = []
     conn.close()
     for res in query_res:
@@ -122,10 +122,16 @@ def delete_event(event_id):
     print("AYO: ", query_res)
     conn.close()
 
+def edit_event(event_id, title, description, start_date, end_date):
+    conn = db.connect()
+    query = "UPDATE Events SET title = %s, description = %s, datestart = %s, dateend = %s WHERE eventid = %s"
+    #query_res = conn.execute(query, title, description, start_date, end_date, event_id)
+    conn.close()
+
 def search_events(search_query) -> dict:
     search_query = "%" + search_query + "%"
     conn = db.connect()
-    query = query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend, eventid
+    query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend, eventid
                FROM Parks as p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
                WHERE p1.name LIKE %s
                ORDER BY title
