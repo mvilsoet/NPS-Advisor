@@ -1,4 +1,5 @@
 from app import db
+from datetime import datetime
 def test_fetch() -> dict:
     parks = [
         {"name": "yellowstone", "description": "maybe exists idk", "stateAbbr": "HI"}
@@ -39,7 +40,7 @@ def search_parks(search_query) -> dict:
 
 def get_events() -> dict:
     conn = db.connect()
-    query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend
+    query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend, eventid
                FROM Parks p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
                ORDER BY title
                LIMIT 15;"""
@@ -53,7 +54,8 @@ def get_events() -> dict:
             "park_name": res[2],
             "states": res[3],
             "start_date": res[4],
-            "end_date": res[5]
+            "end_date": res[5],
+            "event_id": res[6]
         }
         events.append(item)
     return events
@@ -87,16 +89,24 @@ def get_parknames() -> dict:
     return park_name
 
 def insert_new_event(title, description, start_date, end_date, park_name):
+    eventid = "eventid:" + str(datetime.now())
     conn = db.connect()
-    query = "INSERT INTO Events (title, description, datestart, dateend, parkfullname) VALUES({}, {}, {}, {}, {});".format(
-        title, description, start_date, end_date, park_name)
-    query_res = conn.execute(query)
+    query = "INSERT INTO Events (eventid, title, description, datestart, dateend, parkfullname) VALUES(%s, %s, %s, %s, %s, %s);"#.format(
+        #title, description, start_date, end_date, park_name)
+    query_res = conn.execute(query, eventid, title, description, start_date, end_date, park_name)
+    conn.close()
+
+def delete_event(event_id):
+    conn = db.connect()
+    query = "DELETE FROM Events WHERE eventid = %s"
+    query_res = conn.execute(query, event_id)
+    print("AYO: ", query_res)
     conn.close()
 
 def search_events(search_query) -> dict:
     search_query = "%" + search_query + "%"
     conn = db.connect()
-    query = query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend
+    query = query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend, eventid
                FROM Parks as p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
                WHERE p1.name LIKE %s
                ORDER BY title
@@ -111,7 +121,8 @@ def search_events(search_query) -> dict:
             "park_name": res[2],
             "states": res[3],
             "start_date": res[4],
-            "end_date": res[5]
+            "end_date": res[5],
+            "event_id": res[6]
         }
         events.append(item)
     return events

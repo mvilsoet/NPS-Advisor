@@ -1,7 +1,8 @@
 $(document).ready(function () {
     // example: https://getbootstrap.com/docs/4.2/components/modal/
     // show modal
-    $('#task-modal').on('show.bs.modal', function (event) {
+    $('#event-modal').on('show.bs.modal', function (event) {
+        console.log("reee");
         // const button = $(event.relatedTarget) // Button that triggered the modal
         // const taskID = button.data('source') // Extract info from data-* attributes
         // const content = button.data('content') // Extract info from data-* attributes
@@ -45,6 +46,26 @@ $(document).ready(function () {
             }
         }
 
+        $.ajax(request);
+    });
+
+    $('.remove').click(function () {
+        console.log("ur mom");
+        const thing = $(this)
+        console.log(thing.data('source'))
+        request = {
+            type: 'POST',
+            url: '/delete_event',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify({id: thing.data('source')}),
+            success: function (res) {
+                console.log("Success");
+                location.reload();
+            },
+            error: function () {
+                console.log('Error');
+            }
+        }
         $.ajax(request);
     });
 });

@@ -90,6 +90,8 @@
             <table class="table">
                 <thead> <!--Table metadata-->
                 <tr>
+                    <th class="X">Remove Event</th>
+                    <th class="X">Edit Event</th>
                     <th class="Event Name">Name</th>
                     <th class="Event Description">Description</th>
                     <th class="Event Start Date">Start Date</th>
@@ -101,13 +103,38 @@
                 <tbody>
                 {% for event in events %}
                     <tr>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm remove" type="button" id="delete-button"  data-source="{{event.event_id}}">
+                            <i class="fa fa-trash fa-1"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <div>
+                                <button type="button" class="btn btn-outline-info btn-sm" data-bs-tog
+                            gle="modal"
+                            data-bs-target="#event-modal" data-source="{{event.event_id}}"
+                            data-content="{{event}}"><i class="fa fa-pen fa-1" aria-hi
+                            dden="true"></i>
+                            </button>
+                            </div>
+                            <div class="modal fade" id="event-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="Label">Add an Event</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                         <td>{{event.event_title}}</td>
                         <td>{{event.event_description}}</td>
                         <td>{{event.start_date}}</td>
                         <td>{{event.end_date}}</td>
                         <td>{{event.park_name}} , {{event.states}}</td>
                         {% if event.event_title in free_parking %}
-                        <td><i class="fas fa-check" style="font-size:25px;color:green;""></i></td>
+                        <td><i class="fas fa-check" style="font-size:25px;color:green;"></i></td>
                         {% endif %}
                     </tr>
                 {% endfor %}   
