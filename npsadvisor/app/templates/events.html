@@ -78,6 +78,34 @@
                 </div>
             </div>
         </div>
+        <div class="container table-responsive">
+            <!-- Table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="Event Title">title</th>
+                        <th class="Event Description">description</th>
+                        <th class="Start Date">datestart</th>
+                        <th class="End Date">dateend</th>
+                        <th class="Park Full Name">parkfullname</th>
+                        <th class="Has Fee">hasFee</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for event in events %}
+                    <tr>
+                        <td>{{event.title}}</td>
+                        <td>{{event.description}}</td>
+                        <td>{{event.datestart}}</td>
+                        <td>{{event.dateend}}</td>
+                        <td>{{event.parkfullname}}</td>
+                        <td>{{event.hasFee}}</td>
+                        <!--td><a href= park.directions></a></td--> <!--debug later!-->
+                    </tr>
+                {% endfor %} 
+                </tbody>
+            </table>
+        </div>
     </body>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

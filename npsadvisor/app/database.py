@@ -37,7 +37,6 @@ def search_parks(search_query) -> dict:
         parks.append(item)
     return parks
 
-
 def get_parknames() -> dict:
     conn = db.connect()
     query_res = conn.execute("SELECT name FROM Parks LIMIT 2;").fetchall()
@@ -56,3 +55,21 @@ def insert_new_event(title, description, start_date, end_date, park_name):
         title, description, start_date, end_date, park_name)
     query_res = conn.execute(query)
     conn.close()
+
+def get_events() -> dict:
+    conn = db.connect()
+    query = "SELECT title, description, datestart, dateend, parkfullname, hasFee FROM Events"
+    query_res = conn.execute(query).fetchall()
+    conn.close()
+    events = []
+    for res in query_res:
+        item = {
+            "title": res[0],
+            "description": res[1],
+            "datestart": res[2],
+            "dateend": res[3],
+            "parkfullname": res[4],
+            "hasFee": res[5]
+        }
+        events.append(item)
+    return events

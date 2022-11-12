@@ -22,7 +22,8 @@ def homepage():
 @app.route("/events")
 def events():
     park_names = db_helper.get_parknames()
-    return render_template("events.html", park_names=park_names)
+    events = db_helper.get_events()
+    return render_template("events.html", park_names=park_names, events=events)
 
 @app.route("/create_event", methods=['POST'])
 def create_event():
