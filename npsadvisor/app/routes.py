@@ -29,15 +29,32 @@ def in_season():
     parks = db_helper.get_parks()
     return render_template("in_season.html", parks=parks) # name-db_helper()
 
-@app.route("/events")
+@app.route("/events", methods=['GET', 'POST'])
+
 def events():
+    free_parking_events = db_helper.get_events_free_parking()
     park_names = db_helper.get_parknames()
-    return render_template("events.html", park_names=park_names)
+    if request.method == 'POST':
+        search_query = request.form['park']
+        events = db_helper.search_events(search_query=search_query)
+        return render_template("events.html", park_names=park_names, events=events, free_parking=free_parking_events)
+    events = db_helper.get_events()
+    return render_template("events.html", park_names=park_names, events=events, free_parking=free_parking_events)
 
 @app.route("/create_event", methods=['POST'])
 def create_event():
     data = request.get_json()
     print(data)
-    # db_helper.insert_new_event(data['title'], data['description'], data['start_date'], data['end_date'], data['park_name'])
+    db_helper.insert_new_event(data['title'], data['description'], data['start_date'], data['end_date'], data['park_name'])
     result = {'success': True, 'response': 'Done'}
     return jsonify(result)
+
+@app.route("/delete_event", methods=['POST'])
+def delete_event():
+    print(request.get_json())
+    db_helper.delete_event(request.get_json()['id'])
+    free_parking_events = db_helper.get_events_free_parking()
+    park_names = db_helper.get_parknames()
+    events = db_helper.get_events()
+    result = {'success': True, 'response': 'Done'}
+    return render_template("events.html", park_names=park_names, events=events, free_parking=free_parking_events)

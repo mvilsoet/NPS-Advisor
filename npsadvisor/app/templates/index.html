@@ -26,6 +26,11 @@
         </main>
         <form class="container extra-bottom" method="post" action="">
             <input type="text" placeholder="Search by park name" name="park">
+            <input list="browsers" name="broswer">
+            <datalist id="browsers">
+                <option value="Internet Explorer">
+                <option value="E">
+            </datalist>
             <button type="submit">Search</button>
         </form>
         <div class="container table-responsive">
@@ -36,16 +41,15 @@
                     <th class="Park Name">Name</th>
                     <th class="Park Description">Description</th>
                     <th class="Park State">State(s)</th>
-                    <th class="Park Directions">Directions</th>
+                    <!-- <th class="Park Directions">Directions</th> -->
                 </tr>
                 </thead>
                 <tbody>
                 {% for park in parks %}
                     <tr>
-                        <td>{{park.name}}</td>
+                        <td><a href="{{ park.directions }}">{{park.name}}</td></a>
                         <td>{{park.description}}</td>
                         <td>{{park.states}}</td>
-                        <td><a href= park.directions></a></td> <!--debug later!-->
                     </tr>
                 {% endfor %}   
                 </tbody>
