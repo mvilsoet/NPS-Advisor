@@ -64,11 +64,11 @@ def get_events_free_parking() -> dict:
     query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend
                 FROM Parks p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
                 WHERE name NOT IN (SELECT p.name
-                                   FROM Parks p JOIN ParkingLots | ON(p.parkCode = l.parkCode)
+                                   FROM Parks p JOIN ParkingLots l ON(p.parkCode = l.parkCode)
                                    WHERE hasFee=True)
                 ORDER BY datestart
                 LIMIT 15;"""
-    conn.execute(query).fetchall()
+    query_res = conn.execute(query).fetchall()
     free_parking_events = []
     conn.close()
     for res in query_res:
