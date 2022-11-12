@@ -10,9 +10,13 @@ nav.Bar('top', [
     nav.Item('Events', 'events')
 ])
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def homepage():
-    parks = db_helper.test_fetch()
+    if request.method == 'POST':
+        search_query = request.form['park']
+        parks = db_helper.search_parks(search_query=search_query)
+        return render_template("index.html", parks=parks)
+    parks = db_helper.get_parks()
     return render_template("index.html", parks=parks) # name-db_helper()
 
 @app.route("/events")
@@ -24,6 +28,6 @@ def events():
 def create_event():
     data = request.get_json()
     print(data)
-    db_helper.insert_new_event(data['title'], data['description'], data['start_date'], data['end_date'], data['park_name'])
+    # db_helper.insert_new_event(data['title'], data['description'], data['start_date'], data['end_date'], data['park_name'])
     result = {'success': True, 'response': 'Done'}
     return jsonify(result)
