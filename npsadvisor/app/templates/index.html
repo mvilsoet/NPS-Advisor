@@ -36,16 +36,15 @@
                     <th class="Park Name">Name</th>
                     <th class="Park Description">Description</th>
                     <th class="Park State">State(s)</th>
-                    <th class="Park Directions">Directions</th>
+                    <!-- <th class="Park Directions">Directions</th> -->
                 </tr>
                 </thead>
                 <tbody>
                 {% for park in parks %}
                     <tr>
-                        <td>{{park.name}}</td>
+                        <td><a href="{{ park.directions }}">{{park.name}}</td></a>
                         <td>{{park.description}}</td>
                         <td>{{park.states}}</td>
-                        <td><a href= park.directions></a></td> <!--debug later!-->
                     </tr>
                 {% endfor %}   
                 </tbody>
