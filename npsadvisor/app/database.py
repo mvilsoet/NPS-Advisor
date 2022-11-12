@@ -125,7 +125,7 @@ def delete_event(event_id):
 def edit_event(event_id, title, description, start_date, end_date):
     conn = db.connect()
     query = "UPDATE Events SET title = %s, description = %s, datestart = %s, dateend = %s WHERE eventid = %s"
-    #query_res = conn.execute(query, title, description, start_date, end_date, event_id)
+    query_res = conn.execute(query, title, description, start_date, end_date, event_id)
     conn.close()
 
 def search_events(search_query) -> dict:

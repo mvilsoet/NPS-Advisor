@@ -62,6 +62,7 @@ def delete_event():
 @app.route("/edit_event", methods=['POST'])
 def edit_event():
     data = request.get_json()
+    # print(data)
     db_helper.edit_event(data['id'], data['title'], data['description'], data['start_date'], data['end_date'])
     result = {'success': True, 'response': 'Done'}
     return jsonify(result)
