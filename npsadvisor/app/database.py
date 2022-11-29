@@ -68,7 +68,7 @@ def get_events() -> dict:
     for res in query_res:
         item = {
             "event_title": res[0],
-            "event_description": res[1],
+            "event_description": res[1] if len(res[1]) < 200 else res[1][:200] + "...",
             "park_name": res[2],
             "states": res[3],
             "start_date": res[4],
@@ -162,7 +162,7 @@ def search_events(search_query) -> dict:
     for res in query_res:
         item = {
             "event_title": res[0],
-            "event_description": res[1],
+            "event_description": res[1] if len(res[1]) < 200 else res[1][:200] + "...",
             "park_name": res[2],
             "states": res[3],
             "start_date": res[4],
