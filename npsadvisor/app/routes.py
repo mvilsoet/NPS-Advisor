@@ -53,6 +53,7 @@ def create_event():
     # print(data)
     db_helper.insert_new_event(data['title'], data['description'], data['start_date'], data['end_date'], data['park_name'])
     result = {'success': True, 'response': 'Done'}
+
     return jsonify(result)
 
 @app.route("/delete_event", methods=['POST'])

@@ -1,5 +1,7 @@
 from app import db
 from datetime import datetime
+import requests
+import json
 def test_fetch() -> dict:
     parks = [
         {"name": "yellowstone", "description": "maybe exists idk", "stateAbbr": "HI"}
@@ -171,3 +173,60 @@ def search_events(search_query) -> dict:
         }
         events.append(item)
     return events
+
+def update_events_from_api():
+    query = "INSERT INTO Events(eventid, title, description, datestart, dateend, parkfullname, category, hasFee) VALUES "
+    api_url = "https://developer.nps.gov/api/v1/events?limit=1000&api_key=3V7MT57J6LMTqfiona1k5RC6x8SHxCVGzSC0Km9j&pagesize=50"
+    api_params = {'pagenumber': 1}
+    api_data = requests.get(url=api_url, params=api_params).json()
+    #
+    #https://developer.nps.gov/api/v1/events?limit=1000&api_key=3V7MT57J6LMTqfiona1k5RC6x8SHxCVGzSC0Km9j
+    """1`datestart` VARCHAR(1024),
+        1`description` VARCHAR(1024),
+        `category` VARCHAR(1024),
+        1`eventid` VARCHAR(1024) PRIMARY KEY,
+        1`dateend` VARCHAR(1024),
+        1`parkfullname` VARCHAR(1024) REFERENCES Parks(name),
+        1`title` VARCHAR(1024),
+        `image` VARCHAR(1024),
+        `hasFee` BOOL"""
+    num_events = int(api_data['total'])
+    event_data = api_data['data']
+    print("hi", num_events, len(event_data))
+    i = 0
+    while i < num_events:
+        #do the thing
+        for event in event_data[:1]:
+            #do a thing
+            #print(event)
+            #+ event['title'] + 
+            query = query + "(\"" + event['id'] + "\", \"" + "e" + "\", \"" + event['description'] + "\", \"" + event['datestart'] + "\", \"" + event['dateend'] + "\", \"" + event['parkfullname'] + "\", \"" + event['category'] + "\", " + str(event['isfree'] == "false") + "),"
+            i += 1
+        
+        #check if we need new events
+        print("buffering: ", i, ". pageno: ", api_params['pagenumber'])
+        
+        #just try first one
+        break
+
+        num_events = int(api_data['total'])
+        if num_events == 0:
+            break
+
+        #get new events
+        api_params['pagenumber'] += 1
+        api_data = requests.get(url=api_url, params=api_params).json()
+        event_data = api_data['data']
+    query = query[:-1] + ";"
+    print("master oogway", i, "query: ", query)
+    
+    # for i in range(num_events):
+    #     event = event_data[i]
+    #     query = query + "(),"
+    # query[-1] = ';'
+    # return
+    conn = db.connect()
+    query_res = conn.execute(query)
+    print(query_res)
+    conn.close()
+    
