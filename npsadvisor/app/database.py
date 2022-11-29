@@ -21,10 +21,27 @@ def get_parks() -> dict:
         parks.append(item)
     return parks
 
-def search_parks(search_query) -> dict:
+def search_parks_by_name(search_query) -> dict:
     search_query = "%" + search_query + "%"
     conn = db.connect()
     query = "SELECT name, description, stateAbbr, directionsUrl FROM Parks WHERE name LIKE %s LIMIT 10;"
+    query_res = conn.execute(query, (search_query)).fetchall()
+    conn.close()
+    parks = []
+    for res in query_res:
+        item = {
+            "name": res[0],
+            "description": res[1],
+            "states": res[2],
+            "directions": res[3]
+        }
+        parks.append(item)
+    return parks
+
+def search_parks_by_state(search_query) -> dict:
+    search_query = "%" + search_query + "%"
+    conn = db.connect()
+    query = "SELECT name, description, stateAbbr, directionsUrl FROM Parks WHERE stateAbbr LIKE %s LIMIT 10;"
     query_res = conn.execute(query, (search_query)).fetchall()
     conn.close()
     parks = []

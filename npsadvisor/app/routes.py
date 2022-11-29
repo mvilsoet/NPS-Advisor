@@ -14,8 +14,15 @@ nav.Bar('top', [
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
     if request.method == 'POST':
-        search_query = request.form['park']
-        parks = db_helper.search_parks(search_query=search_query)
+        try:
+            request.form['state'] #1: if a state code was posted...
+        except:
+            search_query = request.form['park'] #3: if a state wasn't posted... a park_name was, so use it
+            parks = db_helper.search_parks_by_name(search_query=search_query)
+        else:
+            search_query = request.form['state'] #2: use it in the query
+            parks = db_helper.search_parks_by_state(search_query=search_query)
+
         return render_template("index.html", parks=parks)
     parks = db_helper.get_parks()
     return render_template("index.html", parks=parks) # name-db_helper()
@@ -30,7 +37,6 @@ def in_season():
     return render_template("in_season.html", parks=parks) # name-db_helper()
 
 @app.route("/events", methods=['GET', 'POST'])
-
 def events():
     free_parking_events = db_helper.get_events_free_parking()
     park_names = db_helper.get_parknames()
