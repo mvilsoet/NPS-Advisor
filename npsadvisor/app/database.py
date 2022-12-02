@@ -95,7 +95,7 @@ def get_events_free_parking() -> dict:
         free_parking_events.append(res[0])
     return free_parking_events
 
-def in_season(input) -> dict:
+def in_season_activities(input) -> dict:
     arg = input
     conn = db.connect()
     query = """SELECT p.name, p.description, p.stateAbbr, count(a.activID), season
@@ -111,7 +111,134 @@ def in_season(input) -> dict:
             "name": res[0],
             "description": res[1],
             "states": res[2],
-            "amount": res[3],
+            "amount": res[3]
+        }
+        parks.append(item)
+    return parks
+
+def get_activities() -> dict:
+    conn = db.connect()
+    query = """SELECT a.title, a.description, a.season, p.name, p.stateAbbr, a.hasFee
+                FROM Activities a JOIN Parks p ON (a.parkCode = p.parkCode)
+                ORDER BY a.title
+                LIMIT 10;"""
+    query_res = conn.execute(query).fetchall() # Use Python's .format() for user input
+    conn.close()
+    parks = []
+    for res in query_res:
+        item = {
+            "name": res[0],
+            "description": res[1],
+            "season": res[2],
+            "park": res[3],
+            "state": res[4],
+            "fee": res[5]
+        }
+        parks.append(item)
+    return parks
+
+def get_amenities() -> dict:
+    conn = db.connect()
+    query = """SELECT a.name, p.name, p.stateAbbr
+                FROM Amenities a JOIN Parks p ON (a.parkCode = p.parkCode)
+                ORDER BY p.name
+                LIMIT 10;"""
+    query_res = conn.execute(query).fetchall() # Use Python's .format() for user input
+    conn.close()
+    parks = []
+    for res in query_res:
+        item = {
+            "name": res[0],
+            "park": res[1],
+            "state": res[2]
+        }
+        parks.append(item)
+    return parks
+
+def amenities_by_park(search_query) -> dict:
+    search_query = "%" + search_query + "%"
+    conn = db.connect()
+    query = """SELECT a.name, p.name, p.stateAbbr
+                FROM Amenities a JOIN Parks p ON (a.parkCode = p.parkCode)
+                WHERE p.name LIKE %s
+                ORDER BY p.name
+                LIMIT 10;"""
+    query_res = conn.execute(query, (search_query)).fetchall()
+    conn.close()
+    parks = []
+    for res in query_res:
+        item = {
+            "name": res[0],
+            "park": res[1],
+            "state": res[2]
+        }
+        parks.append(item)
+    return parks
+
+def activities_by_state(search_query) -> dict:
+    search_query = "%" + search_query + "%"
+    conn = db.connect()
+    query = """SELECT a.title, a.description, a.season, p.name, p.stateAbbr, a.hasFee
+                FROM Activities a JOIN Parks p ON (a.parkCode = p.parkCode)
+                WHERE p.stateAbbr LIKE %s
+                ORDER BY a.title
+                LIMIT 10;"""
+    query_res = conn.execute(query, (search_query)).fetchall()
+    conn.close()
+    parks = []
+    for res in query_res:
+        item = {
+            "name": res[0],
+            "description": res[1],
+            "season": res[2],
+            "park": res[3],
+            "state": res[4],
+            "fee": res[5]
+        }
+        parks.append(item)
+    return parks
+
+def activities_by_season(search_query) -> dict:
+    conn = db.connect()
+    query = """SELECT a.title, a.description, a.season, p.name, p.stateAbbr, a.hasFee
+                FROM Activities a JOIN Parks p ON (a.parkCode = p.parkCode)
+                WHERE a.season = %s
+                ORDER BY a.title
+                LIMIT 10;"""
+    query_res = conn.execute(query, (search_query)).fetchall()
+    conn.close()
+    parks = []
+    for res in query_res:
+        item = {
+            "name": res[0],
+            "description": res[1],
+            "season": res[2],
+            "park": res[3],
+            "state": res[4],
+            "fee": res[5]
+        }
+        parks.append(item)
+    return parks
+
+def activities_by_name(search_query) -> dict:
+    search_query = "%" + search_query + "%"
+    conn = db.connect()
+    query = """SELECT a.title, a.description, a.season, p.name, p.stateAbbr, a.hasFee
+                FROM Activities a JOIN Parks p ON (a.parkCode = p.parkCode)
+                WHERE a.title LIKE %s
+                ORDER BY a.title
+                LIMIT 10;"""
+    query_res = conn.execute(query, (search_query)).fetchall()
+    conn.close()
+    parks = []
+    for res in query_res:
+        item = {
+            "name": res[0],
+            "description": res[1],
+            "season": res[2],
+            "park": res[3],
+            "state": res[4],
+            "fee": res[5]
         }
         parks.append(item)
     return parks
