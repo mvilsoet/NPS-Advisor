@@ -37,12 +37,12 @@ main {
     margin-left: 250px; /* Same as the width of the sidenav */
 }
 
-.button {
+.btn {
     color: #213A1B;
     border:2px solid #213A1B;
 }
 
-.button:hover {
+.btn:hover {
     color: #fff;
     background-color: #213A1B;
 }
@@ -50,6 +50,10 @@ main {
 .search-button {
     color: #fff;
     background-color: #213A1B;  
+}
+
+table {
+    vertical-align:middle; 
 }
 
 th {
