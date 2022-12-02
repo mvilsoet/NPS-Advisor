@@ -127,4 +127,21 @@ $(document).ready(function () {
         }
         $.ajax(request);
     });
+
+    $('#fetch-new-events').click(function () {
+        console.log("e-mom, discord kitten");
+        request = {
+            type: 'POST',
+            url: '/update_events', 
+            success: function (res) {
+                console.log("Success");
+                location.reload();
+            },
+            error: function () {
+                console.log('Error');
+            }
+        }
+
+        $.ajax(request);
+    });
 });
