@@ -56,8 +56,8 @@ def get_events() -> dict:
             "event_description": res[1] if len(res[1]) < 200 else res[1][:200] + "...",
             "park_name": res[2],
             "states": res[3],
-            "start_date": res[4],
-            "end_date": res[5],
+            "start_date": str(res[4]),
+            "end_date": str(res[5]),
             "event_id": res[6]
         }
         events.append(item)
@@ -262,8 +262,8 @@ def search_events(search_query) -> dict:
             "event_description": res[1] if len(res[1]) < 200 else res[1][:200] + "...",
             "park_name": res[2],
             "states": res[3],
-            "start_date": res[4],
-            "end_date": res[5],
+            "start_date": str(res[4]),
+            "end_date": str(res[5]),
             "event_id": res[6]
         }
         events.append(item)

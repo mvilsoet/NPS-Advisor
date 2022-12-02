@@ -60,8 +60,10 @@
                         <tr>
                             <td>{{event.event_title}}</td>
                             <td>{{event.event_description}}</td>
-                            <td>{{event.start_date.month}}/{{event.start_date.day}}/{{event.start_date.year}}</td>
-                            <td>{{event.end_date.month}}/{{event.end_date.day}}/{{event.end_date.year}}</td>
+                            <!-- <td>{{event.start_date.month}}/{{event.start_date.day}}/{{event.start_date.year}}</td>
+                            <td>{{event.end_date.month}}/{{event.end_date.day}}/{{event.end_date.year}}</td> -->
+                            <td>{{event.start_date}}</td>
+                            <td>{{event.end_date}}</td>
                             <td>{{event.park_name}} , {{event.states}}</td>
                             {% if event.event_title in free_parking %}
                                 <td><i class="fas fa-check" style="font-size:25px;color:#213A1B;"></i></td>

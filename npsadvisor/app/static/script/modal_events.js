@@ -12,6 +12,7 @@ $(document).ready(function () {
         content = button.data('content') // Extract info from data-* attributes
         
         content = content.replace(/'/g, '"')
+        // content = content.replace(/datetime\.date\(\d\d\d\d, \d\d, \d\d\)/g, "YOUR MOTHER")
         
         console.log(content);
         console.log(eventID)
