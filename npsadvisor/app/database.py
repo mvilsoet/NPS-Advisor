@@ -175,7 +175,8 @@ def search_events(search_query) -> dict:
     return events
 
 def update_events_from_api():
-    query = "INSERT OR UPDATE INTO Events(eventid, title, description, datestart, dateend, parkfullname, category, hasFee) VALUES"
+    # This is wonderful. Insert ignore prevents duplicate entries from being entered into the table
+    query = "INSERT IGNORE INTO Events(eventid, title, description, datestart, dateend, parkfullname, category, hasFee) VALUES"
     api_url = "https://developer.nps.gov/api/v1/events?limit=1000&api_key=3V7MT57J6LMTqfiona1k5RC6x8SHxCVGzSC0Km9j&pagesize=50"
     api_params = {'pagenumber': 1}
     api_data = requests.get(url=api_url, params=api_params).json()
@@ -194,20 +195,33 @@ def update_events_from_api():
     event_data = api_data['data']
     print("hi", num_events, len(event_data))
     i = 0
+    queries = []
     while i < num_events:
         #do the thing
-        for event in event_data[:1]:
+        for event in event_data:
+            descript = event['description']
+            #print(descript)
+            descript = descript.replace('"', r'\"')
+            descript = descript.replace('%', r'%%')
+            #descript = descript.replace('"', r'\%')
+            # if i == 24:
+            #     descript = descript[600:650]
+            #print(descript)
+            titl = event['title']
+            titl = titl.replace('"', r'\"')
+            titl = titl.replace('%', r'%%')
             #do a thing
             #print(event)
             #+ event['title'] + 
-            query = query + "(\"" + event['id'] + "\", \"" + "e" + "\", \"" + event['description'] + "\", \"" + event['datestart'] + "\", \"" + event['dateend'] + "\", \"" + event['parkfullname'] + "\", \"" + event['category'] + "\", " + str(event['isfree'] == "false") + "),"
+            q_temp = query + "(\"" + event['id'] + "\", \"" + titl + "\", \"" + descript + "\", \"" + event['datestart'] + "\", \"" + event['dateend'] + "\", \"" + event['parkfullname'] + "\", \"" + event['category'] + "\", " + str(event['isfree'] == "false") + ");"
             i += 1
-        
+            queries.append(q_temp)
         #check if we need new events
-        print("buffering: ", i, ". pageno: ", api_params['pagenumber'])
+        #print("buffering: ", i, ". pageno: ", api_params['pagenumber'])
         
         #just try first one
-        break
+        #break
+        print("Completed parsing page ", api_params['pagenumber'])
 
         num_events = int(api_data['total'])
         if num_events == 0:
@@ -217,16 +231,23 @@ def update_events_from_api():
         api_params['pagenumber'] += 1
         api_data = requests.get(url=api_url, params=api_params).json()
         event_data = api_data['data']
-    query = query[:-1] + ";"
-    print("master oogway", i, "query: ", query)
+    #query = query[:-1] + ";"
+    #print("master oogway", i, "query: ", query)
     
     # for i in range(num_events):
     #     event = event_data[i]
     #     query = query + "(),"
     # query[-1] = ';'
     # return
+
     conn = db.connect()
-    query_res = conn.execute(query)
-    print(query_res)
+    # print(queries[24])
+    # query_res = conn.execute(queries[24])
+    
+    for i in range(len(queries)):
+        query_res = conn.execute(queries[i])
+        if i % 50 == 0:
+            print("Checkpoint ", i / 50)
+        #print("eepa number ", i, ", query: ", queries[i][0:100])
     conn.close()
     
