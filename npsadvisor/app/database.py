@@ -63,7 +63,7 @@ def get_events() -> dict:
     query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend, eventid
                FROM Parks p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
                ORDER BY title
-               LIMIT 20;"""
+               LIMIT 10;"""
     query_res = conn.execute(query).fetchall()
     conn.close()
     events = []
@@ -79,21 +79,6 @@ def get_events() -> dict:
         }
         events.append(item)
     return events
-
-def get_events_free_parking() -> dict:
-    conn = db.connect()
-    query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend
-                FROM Parks p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
-                WHERE name NOT IN (SELECT p.name
-                                   FROM Parks p JOIN ParkingLots l ON(p.parkCode = l.parkCode)
-                                   WHERE hasFee=True)
-                ORDER BY datestart;"""
-    query_res = conn.execute(query).fetchall()
-    free_parking_events = []
-    conn.close()
-    for res in query_res:
-        free_parking_events.append(res[0])
-    return free_parking_events
 
 def in_season(input) -> dict:
     arg = input
@@ -119,7 +104,7 @@ def in_season(input) -> dict:
 
 def get_parknames() -> dict:
     conn = db.connect()
-    query_res = conn.execute("SELECT name FROM Parks;").fetchall() #LIMIT 2
+    query_res = conn.execute("SELECT name FROM Parks LIMIT 10;").fetchall() #LIMIT 2
     park_name = []
     conn.close()
     for res in query_res:
@@ -157,7 +142,7 @@ def search_events(search_query) -> dict:
                FROM Parks as p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
                WHERE p1.name LIKE %s
                ORDER BY title
-               LIMIT 100;"""
+               LIMIT 10;"""
     query_res = conn.execute(query, (search_query)).fetchall()
     conn.close()
     events = []
@@ -230,3 +215,36 @@ def update_events_from_api():
     print(query_res)
     conn.close()
     
+def get_parking() -> dict:
+    conn = db.connect()
+    query = """SELECT name, latitude, longitude, numSpaces
+             FROM ParkingLots
+             LIMIT 2;"""
+    query_res = conn.execute(query).fetchall()
+    conn.close()
+    parking = []
+    for res in query_res:
+        item = {
+            "name": res[0],
+            "latitude": res[1],
+            "longitude": res[2],
+            "numSpaces": res[3]
+        }
+        parking.append(item)
+    return parking
+
+def get_events_free_parking() -> dict:
+    conn = db.connect()
+    query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend
+                FROM Parks p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
+                WHERE name NOT IN (SELECT p.name
+                                   FROM Parks p JOIN ParkingLots l ON(p.parkCode = l.parkCode)
+                                   WHERE hasFee=True)
+                ORDER BY datestart
+                LIMIT 10;"""
+    query_res = conn.execute(query).fetchall()
+    free_parking_events = []
+    conn.close()
+    for res in query_res:
+        free_parking_events.append(res[0])
+    return free_parking_events

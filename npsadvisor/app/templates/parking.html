@@ -32,7 +32,13 @@
         </div>
         <div id="map"></div>
         <script type="text/javascript" src="static/script/map.js"></script>
-
+        <script type="text/javascript">
+            {% for marker in markers %}
+                L.marker([{{ marker['latitude'] }}, {{ marker['longitude'] }}]).addTo(map)
+                .bindPopup("{{ marker['name'] }}, {{marker['numSpaces']}}")
+                .openPopup();
+            {% endfor %}
+        </script>
     </body>
 </html>
 

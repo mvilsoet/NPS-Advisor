@@ -39,7 +39,9 @@ def in_season():
 
 @app.route("/parkinglots")
 def parking_lots():
-    return render_template("parking.html")
+    parking = db_helper.get_parking()
+    print(parking)
+    return render_template("parking.html", markers=parking)
 
 @app.route("/events", methods=['GET', 'POST'])
 def events():
