@@ -46,14 +46,22 @@ main {
     color: #fff;
     background-color: #213A1B;
 }
-
-.search-button {
+.btn-secondary {
     color: #fff;
     background-color: #213A1B;  
 }
 
-table {
+input {
+    width:40%;
+}
+
+.close {
+    color:#213A1B;
+}
+
+tr {
     vertical-align:middle; 
+    text-align: center;
 }
 
 th {
