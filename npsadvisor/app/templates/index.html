@@ -26,18 +26,11 @@
         </div>
         <main>
             <form class="container extra-bottom" method="post" action="" >
-                <div class="row">
                     <input type="text" placeholder="Search by park name" name="park_name">   
                     <input type="text" placeholder="Search by state code" defaultValue="no_entry" list="statelist" name="state">   
-                    <button type="submit" class="search-button">Search</button>
-                     <button type="submit" class="btn btn-outline-info btn-sm" name="submit-button" value="diggity_dawg">Raka Flaka Flame</button>
-                </div>
+                    <button type="submit" class="btn btn-sm" name="submit-button" value="search" style="margin:5px">Search</button>
+                    <button type="submit" class="btn btn-outline-info btn-sm" name="submit-button" value="diggity_dawg" style="margin:5px; float:right">Smart Suggestion</button>
             </form>
-            <!-- <div style="text-align: left;">
-                <button class="btn btn-outline-info btn-sm" type="button" id="diggity_dawg" value="diggity dawg">
-                    Raka Flaka Flame
-                </button>
-            </div> -->
             <div class="container table-responsive">
                 <!-- Table-->
                 <table class="table">
