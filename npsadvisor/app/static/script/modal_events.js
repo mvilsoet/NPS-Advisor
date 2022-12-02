@@ -16,11 +16,8 @@ $(document).ready(function () {
         console.log(content);
         console.log(eventID)
         console.log(content.event_title)
-        //console.log($(this).data('source'))
-        // console.log(content[1]);
-        // console.log(content[19]);
-        const content_json = JSON.parse(content)
-        
+
+        const content_json = JSON.parse(content)  
 
         const modal = $(this)
         for (const c in content_json) {
@@ -38,24 +35,7 @@ $(document).ready(function () {
 
         end = content_json.end_date//modal.find("#event-end-date").data('source')
         modal.find("#event-end-date").val(end)
-
-        // if (taskID === 'New Event') {
-        //     modal.find('.modal-title').text(taskID)
-        //     $('#task-form-display').removeAttr('taskID')
-        // } else {
-        //     modal.find('.modal-title').text('Edit Task ' + taskID)
-        //     $('#task-form-display').attr('taskID', taskID)
-        // }
-
-        // if (content) {
-        //     modal.find('.form-control').val(content);
-        // } else {
-        //     modal.find('.form-control').val('');
-        // }
     })
-    // $('#edit-button').click(function () {
-    //     console.log("sdgsdfgdfshgdsnldfjkgnsjlkhjsghdjsgfdlkhjsdghjlsgdfhjklsgdhjlkgfdlhjksgfdhjlksgfdlkhjsgfhjkdllhjksdgfcsgfbnbjksgbhljkflhughlsgfdlhjgfhldhkljgfdhljksgfhljkgshkjlsgfhkjlsgdfhjklsgdfhjlksgfdhkjlsgfdhlhskdgfhksgfdhjklsgdhjlsgkdfhjlk");
-    // });
 
     $('#submit-edit-event').click(function () {
         console.log($('#edit-modal').find('#event-title').val())
@@ -129,7 +109,7 @@ $(document).ready(function () {
     });
 
     $('#fetch-new-events').click(function () {
-        console.log("e-mom, discord kitten");
+        // console.log("e-mom, discord kitten");
         request = {
             type: 'POST',
             url: '/update_events', 
@@ -144,4 +124,5 @@ $(document).ready(function () {
 
         $.ajax(request);
     });
+
 });

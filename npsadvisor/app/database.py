@@ -379,3 +379,10 @@ def get_events_free_parking() -> dict:
     for res in query_res:
         free_parking_events.append(res[0])
     return free_parking_events
+
+def diggity_dawg():
+    conn = db.connect()
+    # query = "UPDATE Events SET title = %s, description = %s, datestart = %s, dateend = %s WHERE eventid = %s"
+    # query_res = conn.execute(query, title, description, start_date, end_date, event_id)
+    print("HOT diggity dawg")
+    conn.close()

@@ -8,7 +8,7 @@ nav = Navigation(app)
 nav.Bar('top', [
     nav.Item('Home', 'homepage'),
     nav.Item('Events', 'events'),
-    nav.Item('Parking Lots', 'parking_lots')
+    nav.Item('Parking Lots', 'parking_lots'),
     nav.Item('Activities', 'activities'),
     nav.Item('Amenities', 'amenities'),
     nav.Item('In Season', 'in_season')
@@ -112,5 +112,11 @@ def edit_event():
 @app.route("/update_events", methods=['POST'])
 def update_events():
     db_helper.update_events_from_api()
+    result = {'success': True, 'response': 'Done'}
+    return jsonify(result)
+
+@app.route("/diggity_dawg", methods=['POST'])
+def diggity_dawg():
+    db_helper.diggity_dawg()
     result = {'success': True, 'response': 'Done'}
     return jsonify(result)
