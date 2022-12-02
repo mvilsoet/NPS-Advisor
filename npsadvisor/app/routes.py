@@ -8,8 +8,10 @@ nav = Navigation(app)
 nav.Bar('top', [
     nav.Item('Home', 'homepage'),
     nav.Item('Events', 'events'),
-    nav.Item('In Season', 'in_season'),
     nav.Item('Parking Lots', 'parking_lots')
+    nav.Item('Activities', 'activities'),
+    nav.Item('Amenities', 'amenities'),
+    nav.Item('In Season', 'in_season')
 ])
 
 @app.route("/", methods=['GET', 'POST'])
@@ -28,11 +30,35 @@ def homepage():
     parks = db_helper.get_parks()
     return render_template("index.html", parks=parks) # name-db_helper()
 
+@app.route("/activities", methods=['GET', 'POST'])
+def activities():
+    if request.method == 'POST':
+        try:
+            request.form['state'] #1: if a state code was posted...
+        except:
+            try:
+                request.form['season']
+            except:
+                search_query = request.form['name'] #3: if a state wasn't posted... a park_name was, so use it
+                activity= db_helper.activities_by_name(search_query=search_query)
+            else:
+                search_query = request.form['season'] #3: if a state wasn't posted... a park_name was, so use it
+                activity = db_helper.activities_by_season(search_query=search_query)
+        else:
+            search_query = request.form['state'] #2: use it in the query
+            activity = db_helper.activities_by_state(search_query=search_query)
+
+        return render_template("activities.html", activities=activity)
+    activity = db_helper.get_activities()
+    return render_template("activities.html", activities=activity) # name-db_helper()
+
 @app.route("/in_season", methods=['GET', 'POST'])
 def in_season():
     if request.method == 'POST':
-        input = request.form['search']
-        parks = db_helper.in_season(input)
+
+        search_query = request.form['activities'] 
+        parks = db_helper.in_season_activities(input=search_query)
+
         return render_template("in_season.html", parks=parks)
     parks = db_helper.get_parks()
     return render_template("in_season.html", parks=parks) # name-db_helper()
@@ -42,6 +68,17 @@ def parking_lots():
     parking = db_helper.get_parking()
     print(parking)
     return render_template("parking.html", markers=parking)
+
+@app.route("/amenities", methods=['GET', 'POST'])
+def amenities():
+    if request.method == 'POST':
+
+        search_query = request.form['name'] 
+        amenities = db_helper.amenities_by_park(search_query=search_query)
+
+        return render_template("amenities.html", amenity=amenities)
+    amenities = db_helper.get_amenities()
+    return render_template("amenities.html", amenity=amenities) # name-db_helper()
 
 @app.route("/events", methods=['GET', 'POST'])
 def events():

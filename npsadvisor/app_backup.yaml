@@ -1,0 +1,12 @@
+runtime: python39 # or another supported version
+instance_class: F1 # this is the cheapest option
+env_variables:
+  MYSQL_USER: #" " db username, "root"?
+  MYSQL_PASSWORD: #" " db password
+  MYSQL_DB: #" " db name
+  MYSQL_HOST: #11.111.11.11 db ip
+# handlers:
+#   - url: /script
+# static_dir: static/script
+#   - url: /styles
+#   static_dir: static/styles
