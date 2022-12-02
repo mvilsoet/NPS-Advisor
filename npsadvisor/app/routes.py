@@ -16,18 +16,9 @@ nav.Bar('top', [
 def homepage():
     if request.method == 'POST':
         state=request.form['state']
-        name=request.form['park_name']
-        # try:
-        #     request.form['state'] #1: if a state code was posted...
-        # except:
-        #     search_query = request.form['park'] #3: if a state wasn't posted... a park_name was, so use it
-        #     parks = db_helper.search_parks_by_name(search_query=search_query)
-        # else:
-        #     search_query = request.form['state'] #2: use it in the query
-        #     parks = db_helper.search_parks_by_state(search_query=search_query)
-
-        # return render_template("index.html", parks=parks)
-    
+        park_name=request.form['park_name']
+        parks= db_helper.search_parks(park_name, state)
+        return render_template("index.html", parks=parks)
     parks = db_helper.get_parks()
     return render_template("index.html", parks=parks)
 
@@ -43,7 +34,6 @@ def in_season():
 @app.route("/parkinglots")
 def parking_lots():
     parking = db_helper.get_parking()
-    print(parking)
     return render_template("parking.html", markers=parking)
 
 @app.route("/events", methods=['GET', 'POST'])
@@ -60,7 +50,6 @@ def events():
 @app.route("/create_event", methods=['POST'])
 def create_event():
     data = request.get_json()
-    # print(data)
     db_helper.insert_new_event(data['title'], data['description'], data['start_date'], data['end_date'], data['park_name'])
     result = {'success': True, 'response': 'Done'}
 
@@ -68,7 +57,6 @@ def create_event():
 
 @app.route("/delete_event", methods=['POST'])
 def delete_event():
-    # print(request.get_json())
     db_helper.delete_event(request.get_json()['id'])
     # free_parking_events = db_helper.get_events_free_parking()
     # park_names = db_helper.get_parknames()

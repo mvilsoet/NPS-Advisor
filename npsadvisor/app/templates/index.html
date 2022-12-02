@@ -12,10 +12,8 @@
 
         <!--Icon Library-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css">
-        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/custom.css') }}"> -->
-
     </head>
-    <body>
+    <body style=margin-top:78px>
         <div class="sidenav">
             <u style=color:white><h1 style=text-align:center;color:white;font-weight:bold>NPS Advisor</h1></u>
             <ul>
@@ -29,13 +27,13 @@
         <main>
             <form class="container extra-bottom" method="post" action="" >
                 <div class="row">
-                    <div class="col">
+                    <div class="col-3">
                         <input type="text" placeholder="Search by park name" name="park_name">   
                     </div>
-                    <div class="col">
+                    <div class="col-3">
                         <input type="text" placeholder="Search by state code" defaultValue="no_entry" list="statelist" name="state">   
                     </div>
-                    <div class="col">
+                    <div class="col-2">
                         <button type="submit">Search</button>
                     </div>   
                 </div>
