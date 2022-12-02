@@ -17,10 +17,21 @@ nav.Bar('top', [
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
     if request.method == 'POST':
-        state=request.form['state']
-        park_name=request.form['park_name']
-        parks= db_helper.search_parks(park_name, state)
-        return render_template("index.html", parks=parks)
+        print(request.form['submit-button'])
+        if request.form['submit-button'] == 'search':
+            state=request.form['state']
+            park_name=request.form['park_name']
+            parks= db_helper.search_parks(park_name, state)
+            return render_template("index.html", parks=parks)
+        elif request.form['submit-button'] == 'diggity_dawg':
+            parks = db_helper.diggity_dawg()
+            return render_template("index.html", parks=parks)
+
+    # else we have a GET request
+    # print(request.content_type)
+    # if request.content_type:
+    #     parks = db_helper.diggity_dawg()
+    #     return render_template("index.html", parks=parks)
     parks = db_helper.get_parks()
     return render_template("index.html", parks=parks)
 
@@ -115,8 +126,7 @@ def update_events():
     result = {'success': True, 'response': 'Done'}
     return jsonify(result)
 
-@app.route("/diggity_dawg", methods=['POST'])
-def diggity_dawg():
-    db_helper.diggity_dawg()
-    result = {'success': True, 'response': 'Done'}
-    return jsonify(result)
+# @app.route("/diggity_dawg", methods=['POST'])
+# def diggity_dawg():
+#     parks = db_helper.diggity_dawg()
+#     return render_template("index.html", parks=parks)

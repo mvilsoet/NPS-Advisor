@@ -5,8 +5,9 @@ $(document).ready(function () {
     $('#diggity_dawg').click(function () {
         console.log("HOT!");
         request = {
-            type: 'POST',
-            url: '/diggity_dawg', 
+            type: 'GET',
+            url: '/',
+            contentType: 'application/json;charset=UTF-8',
             success: function (res) {
                 console.log("Success");
                 location.reload();

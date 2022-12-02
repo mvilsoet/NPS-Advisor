@@ -382,7 +382,15 @@ def get_events_free_parking() -> dict:
 
 def diggity_dawg():
     conn = db.connect()
-    # query = "UPDATE Events SET title = %s, description = %s, datestart = %s, dateend = %s WHERE eventid = %s"
-    # query_res = conn.execute(query, title, description, start_date, end_date, event_id)
-    print("HOT diggity dawg")
+    query_res = conn.execute("call nps_schema.bingChillingBepis").fetchall()
     conn.close()
+    parks = []
+    for res in query_res:
+        item = {
+            "name": res[0],
+            "description": res[1],
+            "states": res[2],
+            "directions": res[3]
+        }
+        parks.append(item)
+    return parks
