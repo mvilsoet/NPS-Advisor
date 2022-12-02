@@ -29,15 +29,12 @@
             <div class="container extra-bottom">
                 <form method="post" action="" form="float:left">
                     <input type="text" placeholder="Find events by park name" name="park">
-                    <button type="submit" class="search-button">Search</button>
+                    <button type="submit" class="btn btn-sm">Search</button>
                     <button type="button" class="btn btn-outline-info btn-sm button" data-bs-toggle="modal" data-bs-target="#add-modal" data-source="New Event" style="float:right">Add Events</button>
+                    <div>
+                        <button class="btn btn-secondary btn-sm" type="button" id="fetch-new-events" value="Fetch New Events (Warning: this could take a while...)">Fetch New Events (Warning: this could take a while...)</button>
+                    </div>
                 </form>
-            </div>
-            <div style="text-align: right;">
-                <button class="btn btn-outline-info btn-sm" type="button" id="fetch-new-events" value="Fetch New Events (Warning: this could take a while...)">
-                <!-- <input type="submit" name="" id="fetch-new-events" value="Fetch New Events (Warning: this could take a while...)" /> -->
-                    Fetch New Events (Warning: this could take a while...)
-                </button>
             </div>
             <div class="container table-responsive">
                 <!-- Table-->
