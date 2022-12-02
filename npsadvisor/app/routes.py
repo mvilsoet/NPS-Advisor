@@ -15,18 +15,21 @@ nav.Bar('top', [
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
     if request.method == 'POST':
-        try:
-            request.form['state'] #1: if a state code was posted...
-        except:
-            search_query = request.form['park'] #3: if a state wasn't posted... a park_name was, so use it
-            parks = db_helper.search_parks_by_name(search_query=search_query)
-        else:
-            search_query = request.form['state'] #2: use it in the query
-            parks = db_helper.search_parks_by_state(search_query=search_query)
+        state=request.form['state']
+        name=request.form['park_name']
+        # try:
+        #     request.form['state'] #1: if a state code was posted...
+        # except:
+        #     search_query = request.form['park'] #3: if a state wasn't posted... a park_name was, so use it
+        #     parks = db_helper.search_parks_by_name(search_query=search_query)
+        # else:
+        #     search_query = request.form['state'] #2: use it in the query
+        #     parks = db_helper.search_parks_by_state(search_query=search_query)
 
-        return render_template("index.html", parks=parks)
+        # return render_template("index.html", parks=parks)
+    
     parks = db_helper.get_parks()
-    return render_template("index.html", parks=parks) # name-db_helper()
+    return render_template("index.html", parks=parks)
 
 @app.route("/in_season", methods=['GET', 'POST'])
 def in_season():

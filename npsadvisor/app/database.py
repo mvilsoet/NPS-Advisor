@@ -23,6 +23,9 @@ def get_parks() -> dict:
         parks.append(item)
     return parks
 
+def serach_parks(park_name, state) -> dict:
+    
+
 def search_parks_by_name(search_query) -> dict:
     search_query = "%" + search_query + "%"
     conn = db.connect()
