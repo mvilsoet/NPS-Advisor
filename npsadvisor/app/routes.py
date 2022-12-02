@@ -8,7 +8,8 @@ nav = Navigation(app)
 nav.Bar('top', [
     nav.Item('Home', 'homepage'),
     nav.Item('Events', 'events'),
-    nav.Item('In Season', 'in_season')
+    nav.Item('In Season', 'in_season'),
+    nav.Item('Parking Lots', 'parking_lots')
 ])
 
 @app.route("/", methods=['GET', 'POST'])
@@ -35,6 +36,10 @@ def in_season():
         return render_template("in_season.html", parks=parks)
     parks = db_helper.get_parks()
     return render_template("in_season.html", parks=parks) # name-db_helper()
+
+@app.route("/parkinglots")
+def parking_lots():
+    return render_template("parking.html")
 
 @app.route("/events", methods=['GET', 'POST'])
 def events():
