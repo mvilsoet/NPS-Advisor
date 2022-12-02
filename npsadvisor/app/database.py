@@ -175,7 +175,7 @@ def search_events(search_query) -> dict:
     return events
 
 def update_events_from_api():
-    query = "INSERT INTO Events(eventid, title, description, datestart, dateend, parkfullname, category, hasFee) VALUES "
+    query = "INSERT OR UPDATE INTO Events(eventid, title, description, datestart, dateend, parkfullname, category, hasFee) VALUES"
     api_url = "https://developer.nps.gov/api/v1/events?limit=1000&api_key=3V7MT57J6LMTqfiona1k5RC6x8SHxCVGzSC0Km9j&pagesize=50"
     api_params = {'pagenumber': 1}
     api_data = requests.get(url=api_url, params=api_params).json()
