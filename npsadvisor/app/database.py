@@ -5,7 +5,7 @@ import json
 
 def get_parks() -> dict:
     conn = db.connect()
-    query_res = conn.execute("SELECT name, description, stateAbbr, directionsUrl FROM Parks LIMIT 10;").fetchall() # Use Python's .format() for user input
+    query_res = conn.execute("SELECT name, description, stateAbbr, directionsUrl FROM Parks;").fetchall() # Use Python's .format() for user input
     conn.close()
     parks = []
     for res in query_res:
@@ -26,8 +26,7 @@ def search_parks(park_name, state) -> dict:
     conn = db.connect()
     query = """SELECT name, description, stateAbbr, directionsUrl
                FROM Parks
-               WHERE (name LIKE %s OR stateAbbr LIKE %s)
-               LIMIT 2;"""
+               WHERE (name LIKE %s OR stateAbbr LIKE %s);"""
     query_res = conn.execute(query, park_name, state).fetchall()
     conn.close()
     parks = []
@@ -45,8 +44,7 @@ def get_events() -> dict:
     conn = db.connect()
     query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend, eventid
                FROM Parks p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
-               ORDER BY title
-               LIMIT 10;"""
+               ORDER BY title"""
     query_res = conn.execute(query).fetchall()
     conn.close()
     events = []
@@ -69,8 +67,7 @@ def in_season_activities(input) -> dict:
     query = """SELECT p.name, p.description, p.stateAbbr, count(a.activID), season
                 FROM Activities a JOIN Parks p ON (a.parkCode = p.parkCode)
                 WHERE season = %s AND a.hasFee = false GROUP BY a.parkCODE
-                ORDER BY count(a.activID) DESC
-                LIMIT 10;"""
+                ORDER BY count(a.activID) DESC"""
     query_res = conn.execute(query, arg).fetchall()
     conn.close()
     parks = []
@@ -88,8 +85,7 @@ def get_activities() -> dict:
     conn = db.connect()
     query = """SELECT a.title, a.description, a.season, p.name, p.stateAbbr, a.hasFee
                 FROM Activities a JOIN Parks p ON (a.parkCode = p.parkCode)
-                ORDER BY a.title
-                LIMIT 10;"""
+                ORDER BY a.title"""
     query_res = conn.execute(query).fetchall() # Use Python's .format() for user input
     conn.close()
     parks = []
@@ -109,8 +105,7 @@ def get_amenities() -> dict:
     conn = db.connect()
     query = """SELECT a.name, p.name, p.stateAbbr
                 FROM Amenities a JOIN Parks p ON (a.parkCode = p.parkCode)
-                ORDER BY p.name
-                LIMIT 10;"""
+                ORDER BY p.name"""
     query_res = conn.execute(query).fetchall() # Use Python's .format() for user input
     conn.close()
     parks = []
@@ -129,8 +124,7 @@ def amenities_by_park(search_query) -> dict:
     query = """SELECT a.name, p.name, p.stateAbbr
                 FROM Amenities a JOIN Parks p ON (a.parkCode = p.parkCode)
                 WHERE p.name LIKE %s
-                ORDER BY p.name
-                LIMIT 10;"""
+                ORDER BY p.name"""
     query_res = conn.execute(query, (search_query)).fetchall()
     conn.close()
     parks = []
@@ -149,8 +143,7 @@ def activities_by_state(search_query) -> dict:
     query = """SELECT a.title, a.description, a.season, p.name, p.stateAbbr, a.hasFee
                 FROM Activities a JOIN Parks p ON (a.parkCode = p.parkCode)
                 WHERE p.stateAbbr LIKE %s
-                ORDER BY a.title
-                LIMIT 10;"""
+                ORDER BY a.title;"""
     query_res = conn.execute(query, (search_query)).fetchall()
     conn.close()
     parks = []
@@ -171,8 +164,7 @@ def activities_by_season(search_query) -> dict:
     query = """SELECT a.title, a.description, a.season, p.name, p.stateAbbr, a.hasFee
                 FROM Activities a JOIN Parks p ON (a.parkCode = p.parkCode)
                 WHERE a.season = %s
-                ORDER BY a.title
-                LIMIT 10;"""
+                ORDER BY a.title"""
     query_res = conn.execute(query, (search_query)).fetchall()
     conn.close()
     parks = []
@@ -194,8 +186,7 @@ def activities_by_name(search_query) -> dict:
     query = """SELECT a.title, a.description, a.season, p.name, p.stateAbbr, a.hasFee
                 FROM Activities a JOIN Parks p ON (a.parkCode = p.parkCode)
                 WHERE a.title LIKE %s
-                ORDER BY a.title
-                LIMIT 10;"""
+                ORDER BY a.title"""
     query_res = conn.execute(query, (search_query)).fetchall()
     conn.close()
     parks = []
@@ -214,7 +205,7 @@ def activities_by_name(search_query) -> dict:
 
 def get_parknames() -> dict:
     conn = db.connect()
-    query_res = conn.execute("SELECT name FROM Parks LIMIT 10;").fetchall() #LIMIT 2
+    query_res = conn.execute("SELECT name FROM Parks;").fetchall() #LIMIT 2
     park_name = []
     conn.close()
     for res in query_res:
@@ -251,8 +242,7 @@ def search_events(search_query) -> dict:
     query = """SELECT title, e1.description, name, stateAbbr, datestart, dateend, eventid
                FROM Parks as p1 JOIN Events e1 ON (p1.name = e1.parkfullname)
                WHERE p1.name LIKE %s
-               ORDER BY title
-               LIMIT 10;"""
+               ORDER BY title"""
     query_res = conn.execute(query, (search_query)).fetchall()
     conn.close()
     events = []
@@ -349,8 +339,7 @@ def update_events_from_api():
 def get_parking() -> dict:
     conn = db.connect()
     query = """SELECT name, latitude, longitude, numSpaces
-             FROM ParkingLots
-             LIMIT 2;"""
+             FROM ParkingLots"""
     query_res = conn.execute(query).fetchall()
     conn.close()
     parking = []
@@ -371,8 +360,7 @@ def get_events_free_parking() -> dict:
                 WHERE name NOT IN (SELECT p.name
                                    FROM Parks p JOIN ParkingLots l ON(p.parkCode = l.parkCode)
                                    WHERE hasFee=True)
-                ORDER BY datestart
-                LIMIT 10;"""
+                ORDER BY datestart"""
     query_res = conn.execute(query).fetchall()
     free_parking_events = []
     conn.close()
