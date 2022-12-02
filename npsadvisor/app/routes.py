@@ -8,9 +8,9 @@ nav = Navigation(app)
 nav.Bar('top', [
     nav.Item('Home', 'homepage'),
     nav.Item('Events', 'events'),
-    nav.Item('Parking Lots', 'parking_lots')
     nav.Item('Activities', 'activities'),
     nav.Item('Amenities', 'amenities'),
+    nav.Item('Parking Lots', 'parking_lots'),
     nav.Item('In Season', 'in_season')
 ])
 

@@ -29,12 +29,31 @@ body {
   }
 
 .active {
-    background-color: #04AA6D;
+    background-color: #213A1B;
     color: #fff;
 }
 
 main {
     margin-left: 250px; /* Same as the width of the sidenav */
+}
+
+.button {
+    color: #213A1B;
+    border:2px solid #213A1B;
+}
+
+.button:hover {
+    color: #fff;
+    background-color: #213A1B;
+}
+
+.search-button {
+    color: #fff;
+    background-color: #213A1B;  
+}
+
+th {
+    color:#213A1B;
 }
 
 #map {
