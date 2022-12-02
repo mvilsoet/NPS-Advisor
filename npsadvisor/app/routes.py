@@ -108,3 +108,15 @@ def edit_event():
     db_helper.edit_event(data['id'], data['title'], data['description'], data['start_date'], data['end_date'])
     result = {'success': True, 'response': 'Done'}
     return jsonify(result)
+
+@app.route("/update_events", methods=['POST'])
+def update_events():
+    db_helper.update_events_from_api()
+    result = {'success': True, 'response': 'Done'}
+    return jsonify(result)
+
+@app.route("/diggity_dawg", methods=['POST'])
+def diggity_dawg():
+    db_helper.diggity_dawg()
+    result = {'success': True, 'response': 'Done'}
+    return jsonify(result)
